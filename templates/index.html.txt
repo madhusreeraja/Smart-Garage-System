@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Garage System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #74ebd5, #acb6e5);
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            margin-top: 30px;
+            color: #222;
+        }
+        .status-box {
+            margin: 20px auto;
+            padding: 20px;
+            width: 60%;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        button {
+            background: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 25px;
+            margin: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .off {
+            background: #d9534f;
+        }
+    </style>
+</head>
+<body>
+    <h1>🚗 Smart Garage System</h1>
+
+    <div class="status-box">
+        <h2>Garage Door Status: <b>{{ status }}</b></h2>
+        <h3>Sensor: {{ sensor }}</h3>
+        <h3>Auto Mode: {{ mode }}</h3>
+
+        <form method="post" action="/open"><button>Open Garage</button></form>
+        <form method="post" action="/close"><button class="off">Close Garage</button></form>
+        <form method="post" action="/toggle_auto"><button>Toggle Auto Mode</button></form>
+        <form method="post" action="/simulate_car"><button>Simulate Car Arriving</button></form>
+        <form method="post" action="/simulate_leave"><button>Simulate Car Leaving</button></form>
+    </div>
+</body>
+</html>
