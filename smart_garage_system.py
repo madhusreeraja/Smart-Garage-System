@@ -97,3 +97,27 @@ if __name__ == "__main__":
 
     print("🚗 Starting Smart Garage System at http://127.0.0.1:5000/")
     app.run(debug=False)
+    # -----------------------------------------------------
+# 💾 DATABASE MANAGEMENT SYSTEM (DBMS) CORE CONCEPTS
+# -----------------------------------------------------
+import sqlite3
+
+# Connect to the database (creates garage.db if not exists)
+conn = sqlite3.connect('garage.db')
+cursor = conn.cursor()
+
+# 1️⃣ CREATE TABLE (Schema Definition)
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS vehicles (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    vehicle_number TEXT UNIQUE,
+    owner_name TEXT NOT NULL,
+    entry_time TEXT,
+    exit_time TEXT
+)
+''')
+
+# 2️⃣ INSERT DATA (Add records)
+try:
+    cursor.execute("INSERT INTO vehicl
+
