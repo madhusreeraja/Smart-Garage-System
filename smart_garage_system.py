@@ -119,5 +119,64 @@ CREATE TABLE IF NOT EXISTS vehicles (
 
 # 2️⃣ INSERT DATA (Add records)
 try:
-    cursor.execute("INSERT INTO vehicl
+    conn = sqlite3.connect("garage.db")
+    cursor = conn.cursor()
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS vehicles (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            owner TEXT NOT NULL,
+            number TEXT NOT NULL,
+            intime TEXT NOT NULL
+        )
+    """)
+    conn.commit()
+    conn.close()
+except Exception as e:
+    print("Error while creating database:", e)
+
+
+@app.route("/")
+def home():
+    conn = sqlite3.connect("garage.db")
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM vehicles")
+    vehicles = cursor.fetchall()
+    conn.close()
+    return render_template("index.html", vehicles=vehicles)
+
+
+@app.route("/add_vehicle", methods=["POST"])
+def add_vehicle():
+    owner = request.form["owner"]
+    number = request.form["number"]
+    intime = request.form["intime"]
+
+    conn = sqlite3.connect("garage.db")
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO vehicles (owner, number, intime) VALUES (?, ?, ?)", (owner, number, intime))
+# -------------------------------
+# MySQL Database Connection (DBMS Feature)
+# -------------------------------
+
+import mysql.connector
+
+def mysql_connection_example():
+    try:
+        conn = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="your_mysql_password",  # replace with your actual MySQL password
+            database="smart_garage"
+        )
+        cursor = conn.cursor()
+        cursor.execute("CREATE TABLE IF NOT EXISTS vehicles (id INT AUTO_INCREMENT PRIMARY KEY, owner VARCHAR(100), number VARCHAR(50), intime VARCHAR(50), outtime VARCHAR(50))")
+        print("✅ MySQL connected and table created successfully!")
+        conn.close()
+    except Exception as e:
+        print("❌ MySQL connection failed:", e)
+# Demonstrate MySQL DBMS concept
+mysql_connection_example()
+
+if __name__ == "__main__":
+    app.run(debug=True)
 
